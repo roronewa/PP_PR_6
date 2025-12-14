@@ -1,58 +1,49 @@
-﻿using System;
-
-public class Program
+﻿namespace pr_6_2
 {
-    public static void Main()
+    using System;
+
+    public class Program
     {
-        double X = 580; 
-        double Y = 34; 
-        double step = 1.0; 
-        double step_k = 0.35; 
+        public static void Main()
+        {
+            Console.Write("Введіть довжину: ");
+            string namber_str = Console.ReadLine();
 
-        Console.Write("Введіть довжину будинку (L) в метрах: ");
-        double L = Convert.ToDouble(Console.ReadLine());
+            Console.Write("Введіть який пароль бажаєте 1 - літери 2 - літери і цифри 3 - всі символи: ");
+            string wer = Console.ReadLine();
+            int length = Convert.ToInt32(namber_str);
 
-        double X_m = X / 100.0;
-        double half_X = X_m / 2.0;
-        double Y_rad = Math.PI * Y / 180.0;
-        double stropil_length = half_X / Math.Cos(Y_rad);
-        double num_stropil_one_side = Math.Ceiling(L / step) + 1;
-        double total_stropil = num_stropil_one_side * 2;
+            string pool = "";
 
-        Console.WriteLine("1. стропила:");
-        Console.WriteLine($"Довжина одного стропила: {stropil_length:F2} м");
-        Console.WriteLine($"Загальна кількість стропил: {total_stropil} шт.\n");
+            if (wer == "1")
+            {
+                pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            }
 
-        double zatyazhka_length = X_m;
-        double num_zatyazhka = num_stropil_one_side;
+            else if (wer == "2")
+            {
+                pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            }
 
-        Console.WriteLine("2. затяжки:");
-        Console.WriteLine($"Довжина однієї затяжки: {zatyazhka_length:F2} м");
-        Console.WriteLine($"Кількість затяжок: {num_zatyazhka} шт.\n");
+            else 
+            {
+                pool = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+            }
 
-        double num_rows_obreshitka = Math.Ceiling(stropil_length / step_k) + 1;
-        double obreshitka_board_length = L;
-        double total_obreshitka_boards = num_rows_obreshitka * 2;
+            Random random = new Random();
 
-        Console.WriteLine("3. обрешітка:");
-        Console.WriteLine($"Довжина однієї дошки: {obreshitka_board_length:F2} м");
-        Console.WriteLine($"Загальна кількість дощок: {total_obreshitka_boards} шт.\n");
+            string password = "";
 
-        double shifer_width = 1.125;
-        double shifer_height = 1.75;
-        double overlap_horiz = 0.125;
-        double overlap_vert = 0.25;
+            for (int i = 0; i < length; i++ )
+            {
+                int index = random.Next(pool.Length);
 
+                char randomChar = pool[index];
 
-        double useful_width = shifer_width - overlap_horiz;
-        double useful_height = shifer_height - overlap_vert;
-        double num_shifer_horiz = Math.Ceiling(L / useful_width);
-        double num_shifer_vert = Math.Ceiling(stropil_length / useful_height);
-        double total_shifer = num_shifer_horiz * num_shifer_vert * 2;
+                password += randomChar;
+            }
 
-        Console.WriteLine("4. шифер:");
-        Console.WriteLine($"Корисна ширина листа: {useful_width:F2} м");
-        Console.WriteLine($"Корисна висота листа: {useful_height:F2} м");
-        Console.WriteLine($"Загальна кількість шиферин: {total_shifer} шт.");
+            Console.WriteLine($"Згенерований пароль довжиною {length}: {password}");
+        }
     }
 }
